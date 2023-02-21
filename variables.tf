@@ -7,12 +7,13 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "The version of OpenSearch to deploy."
   type        = string
-  default     = "1.0"
+  default     = "2.3"
 }
 
 variable "cluster_domain" {
   description = "The hosted zone name of the OpenSearch cluster."
   type        = string
+  default     = "devops.com.ph"
 }
 
 variable "create_service_role" {
@@ -30,7 +31,7 @@ variable "master_user_arn" {
 variable "master_instance_enabled" {
   description = "Indicates whether dedicated master nodes are enabled for the cluster."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "master_instance_type" {
@@ -47,13 +48,13 @@ variable "master_instance_type" {
 variable "master_instance_count" {
   description = "The number of dedicated master nodes in the cluster."
   type        = number
-  default     = 3
+  default     = null
 }
 
 variable "hot_instance_type" {
   description = "The type of EC2 instances to run for each hot node. A list of available instance types can you find at https://aws.amazon.com/en/opensearch-service/pricing/#On-Demand_instance_pricing"
   type        = string
-  default     = "r6gd.4xlarge.elasticsearch"
+  default     = "r6gd.xlarge.elasticsearch"
 
   validation {
     condition     = can(regex("^[t3|m3|r3|i3|i2|r6gd|c6g]", var.hot_instance_type))
@@ -64,13 +65,13 @@ variable "hot_instance_type" {
 variable "hot_instance_count" {
   description = "The number of dedicated hot nodes in the cluster."
   type        = number
-  default     = 3
+  default     = null
 }
 
 variable "warm_instance_enabled" {
   description = "Indicates whether ultrawarm nodes are enabled for the cluster."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "warm_instance_type" {
@@ -82,13 +83,13 @@ variable "warm_instance_type" {
 variable "warm_instance_count" {
   description = "The number of dedicated warm nodes in the cluster."
   type        = number
-  default     = 3
+  default     = null
 }
 
 variable "availability_zones" {
   description = "The number of availability zones for the OpenSearch cluster. Valid values: 1, 2 or 3."
   type        = number
-  default     = 3
+  default     = 1
 }
 
 variable "vpc_enabled" {
@@ -148,7 +149,7 @@ variable "encrypt_kms_key_id" {
 variable "saml_enabled" {
   description = "Indicates whether to configure SAML for the OpenSearch dashboard."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "saml_subject_key" {
@@ -263,4 +264,22 @@ variable "custom_endpoint_certificate_arn" {
   description = "The ARN of the custom ACM certificate."
   type        = string
   default     = ""
+}
+
+# DevKintics Specific Variables
+variable "internal_user_database_enabled" {
+  description = "Allow custom username"
+  type        = bool
+  default     = true
+}
+
+variable "master_user_name" {
+  description = "Username"
+  type        = string
+  default     = "mikael"
+}
+
+variable "master_user_password" {
+  description = "Password"
+  type        = string
 }
