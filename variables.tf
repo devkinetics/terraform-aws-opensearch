@@ -283,3 +283,9 @@ variable "master_user_password" {
   description = "Password"
   type        = string
 }
+
+variable "custom_endpoint_enabled" {
+  description = "Custom URL"
+  type        = bool
+  default     = true
+}

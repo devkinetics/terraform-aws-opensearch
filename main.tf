@@ -63,7 +63,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
 
-    custom_endpoint_enabled         = true
+    custom_endpoint_enabled         = var.custom_endpoint_enabled
     custom_endpoint                 = "${var.cluster_name}.${data.aws_route53_zone.opensearch.name}"
     custom_endpoint_certificate_arn = (var.custom_endpoint_certificate_arn != "") ? var.custom_endpoint_certificate_arn : module.acm[0].acm_certificate_arn
   }
