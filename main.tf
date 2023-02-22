@@ -53,7 +53,7 @@ resource "aws_elasticsearch_domain" "opensearch" {
     internal_user_database_enabled = var.internal_user_database_enabled
 
     master_user_options {
-      master_user_arn = (var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
+      # master_user_arn = (var.master_user_arn != "") ? var.master_user_arn : data.aws_caller_identity.current.arn
       master_user_name = var.master_user_name
       master_user_password = var.master_user_password
     }
